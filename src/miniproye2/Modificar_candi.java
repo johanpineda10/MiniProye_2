@@ -222,6 +222,7 @@ public class Modificar_candi extends javax.swing.JFrame {
                     jrDere.setSelected(true);
                     jrIzqui.setSelected(false);
                 }
+                can[i][1] = jtNombre.getText();
             }else{
                 JOptionPane.showMessageDialog(null, "Usuario no encontrado");
                 jtCedula.setText("");

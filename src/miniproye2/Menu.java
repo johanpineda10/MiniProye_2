@@ -119,6 +119,7 @@ public class Menu extends javax.swing.JFrame {
         Modificar_candi mc = new Modificar_candi(candi, fila);
         mc.setVisible(true);
         dispose();
+        
     }//GEN-LAST:event_jMenuItem2ActionPerformed
 
     private void jMenuItem3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem3ActionPerformed
