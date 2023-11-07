@@ -11,9 +11,9 @@ package miniproye2;
  */
 public class Menu extends javax.swing.JFrame {
 
-    /**
-     * Creates new form Menu
-     */
+    String candi[][] = new String[20][6];
+    int fila = 0;
+    int cod = 0;
     public Menu() {
         initComponents();
     }
@@ -108,13 +108,15 @@ public class Menu extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
-        Agregar_Candi ac = new Agregar_Candi();
+        Agregar_Candi ac = new Agregar_Candi(candi, fila, cod);
         ac.setVisible(true);
-        dispose();
+        candi = ac.candi;
+        fila++;
+        cod++;
     }//GEN-LAST:event_jMenuItem1ActionPerformed
 
     private void jMenuItem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem2ActionPerformed
-        Modificar_candi mc = new Modificar_candi();
+        Modificar_candi mc = new Modificar_candi(candi, fila);
         mc.setVisible(true);
         dispose();
     }//GEN-LAST:event_jMenuItem2ActionPerformed

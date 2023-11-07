@@ -5,17 +5,22 @@
  */
 package miniproye2;
 
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author Sebastian Laverde
  */
 public class Agregar_Candi extends javax.swing.JFrame {
 
-    /**
-     * Creates new form Agregar_Candidatos
-     */
-    public Agregar_Candi() {
+    String candi[][];
+    int fila;
+    int cod;
+    public Agregar_Candi(String candi[][], int fila, int cod) {
         initComponents();
+        this.candi = candi;
+        this.fila = fila;
+        this.cod = cod;
     }
 
     /**
@@ -29,6 +34,9 @@ public class Agregar_Candi extends javax.swing.JFrame {
 
         buttonGroup1 = new javax.swing.ButtonGroup();
         buttonGroup2 = new javax.swing.ButtonGroup();
+        buttonGroup3 = new javax.swing.ButtonGroup();
+        buttonGroup4 = new javax.swing.ButtonGroup();
+        buttonGroup5 = new javax.swing.ButtonGroup();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
@@ -37,15 +45,16 @@ public class Agregar_Candi extends javax.swing.JFrame {
         jLabel6 = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
         jtCedula = new javax.swing.JTextField();
-        jtNombre1 = new javax.swing.JTextField();
+        jtNombre = new javax.swing.JTextField();
         jcCiudad = new javax.swing.JComboBox<>();
         jcPoliticos = new javax.swing.JComboBox<>();
-        jRadioButton1 = new javax.swing.JRadioButton();
-        jRadioButton2 = new javax.swing.JRadioButton();
+        jrIzquierda = new javax.swing.JRadioButton();
+        jrDere = new javax.swing.JRadioButton();
         btnAgregar = new javax.swing.JButton();
         btnAgregar1 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setPreferredSize(new java.awt.Dimension(380, 500));
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
@@ -75,73 +84,77 @@ public class Agregar_Candi extends javax.swing.JFrame {
         jLabel7.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabel7.setText("Propuestas:");
         getContentPane().add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 330, -1, -1));
-        getContentPane().add(jtCedula, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 120, 120, 20));
-        getContentPane().add(jtNombre1, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 80, 120, 20));
+        getContentPane().add(jtCedula, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 120, 140, 30));
+
+        jtNombre.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jtNombre.setPreferredSize(new java.awt.Dimension(4, 21));
+        jtNombre.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jtNombreActionPerformed(evt);
+            }
+        });
+        getContentPane().add(jtNombre, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 70, 140, 30));
 
         jcCiudad.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-        getContentPane().add(jcCiudad, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 170, 120, -1));
+        getContentPane().add(jcCiudad, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 170, 140, 30));
 
         jcPoliticos.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-        getContentPane().add(jcPoliticos, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 210, 120, -1));
+        getContentPane().add(jcPoliticos, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 210, 140, 30));
 
-        jRadioButton1.setText("Izquierda");
-        getContentPane().add(jRadioButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 260, -1, -1));
+        jrIzquierda.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jrIzquierda.setText("Izquierda");
+        getContentPane().add(jrIzquierda, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 260, -1, -1));
 
-        jRadioButton2.setText("Derecha");
-        getContentPane().add(jRadioButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 290, -1, -1));
+        jrDere.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jrDere.setText("Derecha");
+        getContentPane().add(jrDere, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 290, -1, -1));
 
         btnAgregar.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         btnAgregar.setText("Salir");
+        btnAgregar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAgregarActionPerformed(evt);
+            }
+        });
         getContentPane().add(btnAgregar, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 400, 70, -1));
 
         btnAgregar1.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         btnAgregar1.setText("Agregar candidato");
+        btnAgregar1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAgregar1ActionPerformed(evt);
+            }
+        });
         getContentPane().add(btnAgregar1, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 400, -1, -1));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(Agregar_Candi.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(Agregar_Candi.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(Agregar_Candi.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(Agregar_Candi.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-        //</editor-fold>
+    private void btnAgregar1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregar1ActionPerformed
+        crear(candi, fila, cod);
+        dispose();
+        
+    }//GEN-LAST:event_btnAgregar1ActionPerformed
 
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new Agregar_Candi().setVisible(true);
-            }
-        });
-    }
+    private void jtNombreActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jtNombreActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jtNombreActionPerformed
+
+    private void btnAgregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarActionPerformed
+        Menu men = new Menu();
+        men.setVisible(true);
+        dispose();
+    }//GEN-LAST:event_btnAgregarActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAgregar;
     private javax.swing.JButton btnAgregar1;
     private javax.swing.ButtonGroup buttonGroup1;
     private javax.swing.ButtonGroup buttonGroup2;
+    private javax.swing.ButtonGroup buttonGroup3;
+    private javax.swing.ButtonGroup buttonGroup4;
+    private javax.swing.ButtonGroup buttonGroup5;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -149,11 +162,38 @@ public class Agregar_Candi extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
-    private javax.swing.JRadioButton jRadioButton1;
-    private javax.swing.JRadioButton jRadioButton2;
     private javax.swing.JComboBox<String> jcCiudad;
     private javax.swing.JComboBox<String> jcPoliticos;
+    private javax.swing.JRadioButton jrDere;
+    private javax.swing.JRadioButton jrIzquierda;
     private javax.swing.JTextField jtCedula;
-    private javax.swing.JTextField jtNombre1;
+    private javax.swing.JTextField jtNombre;
     // End of variables declaration//GEN-END:variables
+
+
+    public void crear(String can[][], int fila, int co){
+        String nombre = jtNombre.getText();
+        String cedula = jtCedula.getText();
+        String ciudad = ""+jcCiudad.getSelectedItem();
+        String politica = ""+jcPoliticos.getSelectedItem();
+        int ideo = 0;
+        if(jrIzquierda.isSelected()){
+            ideo = 0;
+        }else if(jrDere.isSelected()){
+            ideo = 1;
+        }
+        can[fila][0] = ""+co;
+        can[fila][1] = nombre;
+        can[fila][2] = cedula;
+        can[fila][3] = ciudad;
+        can[fila][4] = politica;
+        can[fila][5] = ""+ideo;
+        JOptionPane.showMessageDialog(null, "Usuario creado");
+        fila++;
+        co++;
+        this.fila = fila;
+        this.candi = can;
+        this.cod = co;
+    }
+    
 }
