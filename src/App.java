@@ -3,11 +3,14 @@ import java.awt.*;
 import java.awt.event.*;
 import java.util.ArrayList;
 
-public class App {
+
+public class App{
     private ArrayList<Candidato> candidatos = new ArrayList<>();
     private JFrame frame;
     private JButton insertarButton, actualizarButton, eliminarButton, buscarButton, listarButton, votosButton, salirButton;
-    
+    private String[] ciudades = {"Cali", "Buga", "Palmira", "Tulua", "Cartago", "Bugalagrande", "Buenaventura", "Yumbo"};
+    private String[] partidos = {"Partido Liberal", "Partido Conservador", "Liga", "AICO", "Partido Verde", "Unión Patriótica", "Centro Democrático", "Partido de la U", "Cambio Radical"};
+
     public App() {
         frame = new JFrame("Sistema de Candidatos y Votos");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -36,7 +39,9 @@ public class App {
 
         insertarButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                //mostrarVentanaInsertar();
+                mostrarVentanaInsertar();
+
+
             }
         });
 
@@ -67,7 +72,7 @@ public class App {
         votosButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 if (candidatos.isEmpty()) {
-                    //mostrarMensaje("No hay candidatos ingresados.");
+                    mostrarMensaje("No hay candidatos ingresados.");
                 } else {
                     //mostrarVentanaVotos();
                 }
@@ -80,7 +85,56 @@ public class App {
             }
         });
     }
-    // Realizar la logica de las funciones.
+
+    private void mostrarVentanaInsertar() {
+        String nombre = JOptionPane.showInputDialog("Ingrese el nombre del candidato:");
+        if (nombre == null) {
+            return;
+        }
+
+        int cedula;
+        while (true) {
+            String cedulaStr = JOptionPane.showInputDialog("Ingrese el número de cédula:");
+            if (cedulaStr == null) {
+                return;
+            }
+            try {
+                cedula = Integer.parseInt(cedulaStr);
+                boolean cedulaRepetida = false;
+                for (Candidato candidato : candidatos) {
+                    if (candidato.getCedula() == cedula) {
+                        cedulaRepetida = true;
+                        break;
+                    }
+                }
+                if (!cedulaRepetida) {
+                    break;
+                } else {
+                    int opcion = JOptionPane.showConfirmDialog(null, "La cédula ya está registrada. ¿Desea ingresar una cédula diferente?", "Cédula Repetida", JOptionPane.YES_NO_OPTION);
+                    if (opcion == JOptionPane.NO_OPTION) {
+                        return;
+                    }
+                }
+            } catch (NumberFormatException ex) {
+                JOptionPane.showMessageDialog(null, "Ingrese un número de cédula válido.", "Error", JOptionPane.ERROR_MESSAGE);
+            }
+        }
+
+        String ciudad = (String) JOptionPane.showInputDialog(null, "Elija la ciudad:",
+                "Ciudad", JOptionPane.QUESTION_MESSAGE, null, ciudades, ciudades[0]);
+
+        String partido = (String) JOptionPane.showInputDialog(null, "Elija el partido político:",
+                "Partido Político", JOptionPane.QUESTION_MESSAGE, null, partidos, partidos[0]);
+
+        candidatos.add(new Candidato(nombre, cedula, ciudad, partido));
+        mostrarMensaje("Candidato ingresado exitosamente.");
+    }
+    
+    // Seguir agregando la logica de las demas funcionalidades. 
+
+    private void mostrarMensaje(String mensaje) {
+        JOptionPane.showOptionDialog(null, mensaje, "Mensaje", JOptionPane.OK_OPTION, JOptionPane.INFORMATION_MESSAGE, null, new Object[]{"OK"}, "OK");
+    }
 
 
     public static void main(String[] args) {
@@ -90,5 +144,6 @@ public class App {
             }
         });
     }
-}
+
+};
 
