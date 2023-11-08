@@ -3,6 +3,7 @@ import java.awt.*;
 import java.awt.event.*;
 import java.util.ArrayList;
 
+
 public class App{
     private ArrayList<Candidato> candidatos = new ArrayList<>();
     private JFrame frame;
@@ -39,6 +40,8 @@ public class App{
         insertarButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 mostrarVentanaInsertar();
+
+
             }
         });
 
@@ -133,6 +136,7 @@ public class App{
         JOptionPane.showOptionDialog(null, mensaje, "Mensaje", JOptionPane.OK_OPTION, JOptionPane.INFORMATION_MESSAGE, null, new Object[]{"OK"}, "OK");
     }
 
+
     public static void main(String[] args) {
         SwingUtilities.invokeLater(new Runnable() {
             public void run() {
@@ -140,4 +144,6 @@ public class App{
             }
         });
     }
+
 };
+
