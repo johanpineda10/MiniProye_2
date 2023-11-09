@@ -1,4 +1,3 @@
-# MiniProyecto_2
 Johan Sebastian Laverde Pineda 202266278
 
 Santiago Useche Tascon 202266200
