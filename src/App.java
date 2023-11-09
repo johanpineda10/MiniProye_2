@@ -186,42 +186,6 @@ public class App{
         }
     }
 
-    private void mostrarVentanaEliminar() {
-        if (candidatos.isEmpty()) {
-            mostrarMensaje("No hay candidatos ingresados.");
-            return;
-        }
-
-        int cedulaEliminar;
-        while (true) {
-            String cedulaStr = JOptionPane.showInputDialog("Ingrese la cedula del candidato a eliminar:");
-            if (cedulaStr == null) {
-                return;
-            }
-            try {
-                cedulaEliminar = Integer.parseInt(cedulaStr);
-                break;
-            } catch (NumberFormatException ex) {
-                JOptionPane.showMessageDialog(null, "Ingrese un numero de cedula valido.", "Error", JOptionPane.ERROR_MESSAGE);
-            }
-        }
-
-        Candidato candidatoAEliminar = null;
-
-        for (Candidato candidato : candidatos) {
-            if (candidato.getCedula() == cedulaEliminar) {
-                candidatoAEliminar = candidato;
-                break;
-            }
-        }
-
-        if (candidatoAEliminar != null) {
-            candidatos.remove(candidatoAEliminar);
-            mostrarMensaje("Candidato eliminado exitosamente.");
-        } else {
-            mostrarMensaje("Candidato no encontrado.");
-        }
-    }
     // Seguir agregando la logica de las demas funcionalidades. 
 
     private void mostrarMensaje(String mensaje) {
@@ -237,3 +201,6 @@ public class App{
     }
 
 };
+
+
+
