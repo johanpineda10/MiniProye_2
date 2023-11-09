@@ -11,6 +11,11 @@ public class App{
     private String[] ciudades = {"Cali", "Buga", "Palmira", "Tulua", "Cartago", "Bugalagrande", "Buenaventura", "Yumbo"};
     private String[] partidos = {"Partido Liberal", "Partido Conservador", "Liga", "AICO", "Partido Verde", "Unión Patriótica", "Centro Democrático", "Partido de la U", "Cambio Radical"};
 
+public class App {
+    private ArrayList<Candidato> candidatos = new ArrayList<>();
+    private JFrame frame;
+    private JButton insertarButton, actualizarButton, eliminarButton, buscarButton, listarButton, votosButton, salirButton;
+
     public App() {
         frame = new JFrame("Sistema de Candidatos y Votos");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -39,8 +44,11 @@ public class App{
 
         insertarButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
+
                 mostrarVentanaInsertar();
 
+
+                //mostrarVentanaInsertar();
 
             }
         });
@@ -72,7 +80,11 @@ public class App{
         votosButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 if (candidatos.isEmpty()) {
+
                     mostrarMensaje("No hay candidatos ingresados.");
+
+                    //mostrarMensaje("No hay candidatos ingresados.");
+
                 } else {
                     //mostrarVentanaVotos();
                 }
@@ -85,6 +97,7 @@ public class App{
             }
         });
     }
+
 
     private void mostrarVentanaInsertar() {
         String nombre = JOptionPane.showInputDialog("Ingrese el nombre del candidato:");
@@ -228,6 +241,10 @@ public class App{
         JOptionPane.showOptionDialog(null, mensaje, "Mensaje", JOptionPane.OK_OPTION, JOptionPane.INFORMATION_MESSAGE, null, new Object[]{"OK"}, "OK");
     }
 
+    // Realizar la logica de las funciones.
+
+
+
     public static void main(String[] args) {
         SwingUtilities.invokeLater(new Runnable() {
             public void run() {
@@ -236,7 +253,9 @@ public class App{
         });
     }
 
+
 };
 
 
+}
 
