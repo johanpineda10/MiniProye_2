@@ -130,12 +130,67 @@ public class App{
         mostrarMensaje("Candidato ingresado exitosamente.");
     }
     
+    private void mostrarVentanaActualizar() {
+        if (candidatos.isEmpty()) {
+            mostrarMensaje("No hay candidatos ingresados.");
+            return;
+        }
+
+        int cedulaActualizar;
+        while (true) {
+            String cedulaStr = JOptionPane.showInputDialog("Ingrese la cedula del candidato a actualizar:");
+            if (cedulaStr == null) {
+                return;
+            }
+            try {
+                cedulaActualizar = Integer.parseInt(cedulaStr);
+                break;
+            } catch (NumberFormatException ex) {
+                JOptionPane.showMessageDialog(null, "Ingrese un numero de cedula valido.", "Error", JOptionPane.ERROR_MESSAGE);
+            }
+        }
+
+        Candidato candidatoAActualizar = null;
+
+        for (Candidato candidato : candidatos) {
+            if (candidato.getCedula() == cedulaActualizar) {
+                candidatoAActualizar = candidato;
+                break;
+            }
+        }
+
+        if (candidatoAActualizar != null) {
+            String nuevoNombre = JOptionPane.showInputDialog("Ingrese el nuevo nombre:");
+            if (nuevoNombre == null) {
+                return;
+            }
+
+            String nuevaCiudad = (String) JOptionPane.showInputDialog(null, "Elija la nueva ciudad:",
+                    "Ciudad", JOptionPane.QUESTION_MESSAGE, null, ciudades, candidatoAActualizar.getCiudad());
+            if (nuevaCiudad == null) {
+                return;
+            }
+
+            String nuevoPartido = (String) JOptionPane.showInputDialog(null, "Elija el nuevo partido politico:",
+                    "Partido Politico", JOptionPane.QUESTION_MESSAGE, null, partidos, candidatoAActualizar.getPartido());
+            if (nuevoPartido == null) {
+                return;
+            }
+
+            candidatoAActualizar.setNombre(nuevoNombre);
+            candidatoAActualizar.setCiudad(nuevaCiudad);
+            candidatoAActualizar.setPartido(nuevoPartido);
+            mostrarMensaje("Candidato actualizado exitosamente.");
+        } else {
+            mostrarMensaje("Candidato no encontrado.");
+        }
+    }
+
     // Seguir agregando la logica de las demas funcionalidades. 
 
     private void mostrarMensaje(String mensaje) {
         JOptionPane.showOptionDialog(null, mensaje, "Mensaje", JOptionPane.OK_OPTION, JOptionPane.INFORMATION_MESSAGE, null, new Object[]{"OK"}, "OK");
     }
-
 
     public static void main(String[] args) {
         SwingUtilities.invokeLater(new Runnable() {
@@ -146,4 +201,3 @@ public class App{
     }
 
 };
-
