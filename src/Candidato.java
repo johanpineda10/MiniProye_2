@@ -1,4 +1,3 @@
-
 public class Candidato {
     private String nombre;
     private int cedula;
@@ -54,4 +53,3 @@ public class Candidato {
         this.votos = votos;
     }
 }
-
