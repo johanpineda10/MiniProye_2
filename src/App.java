@@ -71,7 +71,13 @@ public class App{
 
         crear.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
+
                 mostrarVentanaInsertar();
+
+
+
+                //mostrarVentanaInsertar();
+
             }
         });
 
@@ -102,7 +108,11 @@ public class App{
         canVotos.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 if (candidatos.isEmpty()) {
+
                     mostrarMensaje("No hay candidatos ingresados.");
+
+                    //mostrarMensaje("No hay candidatos ingresados.");
+
                 } else {
                     //mostrarVentanaVotos();
                 }
@@ -115,6 +125,7 @@ public class App{
             }
         });
     }
+
 
     private void mostrarVentanaInsertar() {
         String nombre = JOptionPane.showInputDialog("Ingrese el nombre del candidato:");
@@ -258,6 +269,10 @@ public class App{
         JOptionPane.showOptionDialog(null, mensaje, "Mensaje", JOptionPane.OK_OPTION, JOptionPane.INFORMATION_MESSAGE, null, new Object[]{"OK"}, "OK");
     }
 
+    // Realizar la logica de las funciones.
+
+
+
     public static void main(String[] args) {
         SwingUtilities.invokeLater(new Runnable() {
             public void run() {
@@ -266,7 +281,5 @@ public class App{
         });
     }
 
+
 };
-
-
-
