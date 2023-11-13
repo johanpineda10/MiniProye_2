@@ -72,18 +72,14 @@ public class App{
         crear.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
 
+
                 mostrarVentanaInsertar();
-
-
-
-                //mostrarVentanaInsertar();
-
             }
         });
 
         modificar.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                //mostrarVentanaActualizar();
+                mostrarVentanaActualizar();
             }
         });
 
@@ -95,13 +91,13 @@ public class App{
 
         verNombre.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                //mostrarVentanaBuscar();
+                mostrarVentanaBuscar();
             }
         });
 
         verTodos.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                //mostrarVentanaListar();
+                mostrarVentanaListar();
             }
         });
 
@@ -111,10 +107,9 @@ public class App{
 
                     mostrarMensaje("No hay candidatos ingresados.");
 
-                    //mostrarMensaje("No hay candidatos ingresados.");
 
                 } else {
-                    //mostrarVentanaVotos();
+                    mostrarVentanaVotos();
                 }
             }
         });
@@ -263,15 +258,187 @@ public class App{
             mostrarMensaje("Candidato no encontrado.");
         }
     }
-    // Seguir agregando la logica de las demas funcionalidades. 
 
+        int cedulaActualizar;
+        while (true) {
+            String cedulaStr = JOptionPane.showInputDialog("Ingrese la cedula del candidato a actualizar:");
+            if (cedulaStr == null) {
+                return;
+            }
+            try {
+                cedulaActualizar = Integer.parseInt(cedulaStr);
+                break;
+            } catch (NumberFormatException ex) {
+                JOptionPane.showMessageDialog(null, "Ingrese un numero de cedula valido.", "Error", JOptionPane.ERROR_MESSAGE);
+            }
+        }
+
+        Candidato candidatoAActualizar = null;
+
+        for (Candidato candidato : candidatos) {
+            if (candidato.getCedula() == cedulaActualizar) {
+                candidatoAActualizar = candidato;
+                break;
+            }
+        }
+
+        if (candidatoAActualizar != null) {
+            String nuevoNombre = JOptionPane.showInputDialog("Ingrese el nuevo nombre:");
+            if (nuevoNombre == null) {
+                return;
+            }
+
+            String nuevaCiudad = (String) JOptionPane.showInputDialog(null, "Elija la nueva ciudad:",
+                    "Ciudad", JOptionPane.QUESTION_MESSAGE, null, ciudades, candidatoAActualizar.getCiudad());
+            if (nuevaCiudad == null) {
+                return;
+            }
+
+            String nuevoPartido = (String) JOptionPane.showInputDialog(null, "Elija el nuevo partido politico:",
+                    "Partido Politico", JOptionPane.QUESTION_MESSAGE, null, partidos, candidatoAActualizar.getPartido());
+            if (nuevoPartido == null) {
+                return;
+            }
+
+            candidatoAActualizar.setNombre(nuevoNombre);
+            candidatoAActualizar.setCiudad(nuevaCiudad);
+            candidatoAActualizar.setPartido(nuevoPartido);
+            mostrarMensaje("Candidato actualizado exitosamente.");
+        } else {
+            mostrarMensaje("Candidato no encontrado.");
+        }
+    }
+
+    private void mostrarVentanaEliminar() {
+        if (candidatos.isEmpty()) {
+            mostrarMensaje("No hay candidatos ingresados.");
+            return;
+        }
+
+        int cedulaEliminar;
+        while (true) {
+            String cedulaStr = JOptionPane.showInputDialog("Ingrese la cedula del candidato a eliminar:");
+            if (cedulaStr == null) {
+                return;
+            }
+            try {
+                cedulaEliminar = Integer.parseInt(cedulaStr);
+                break;
+            } catch (NumberFormatException ex) {
+                JOptionPane.showMessageDialog(null, "Ingrese un numero de cedula valido.", "Error", JOptionPane.ERROR_MESSAGE);
+            }
+        }
+
+        Candidato candidatoAEliminar = null;
+
+        for (Candidato candidato : candidatos) {
+            if (candidato.getCedula() == cedulaEliminar) {
+                candidatoAEliminar = candidato;
+                break;
+            }
+        }
+
+        if (candidatoAEliminar != null) {
+            candidatos.remove(candidatoAEliminar);
+            mostrarMensaje("Candidato eliminado exitosamente.");
+        } else {
+            mostrarMensaje("Candidato no encontrado.");
+        }
+    }
+    private void mostrarVentanaBuscar() {
+        if (candidatos.isEmpty()) {
+            mostrarMensaje("No hay candidatos ingresados.");
+            return;
+        }
+
+        int cedulaBuscar;
+        while (true) {
+            String cedulaStr = JOptionPane.showInputDialog("Ingrese la cedula del candidato a buscar:");
+            if (cedulaStr == null) {
+                return;
+            }
+            try {
+                cedulaBuscar = Integer.parseInt(cedulaStr);
+                break;
+            } catch (NumberFormatException ex) {
+                JOptionPane.showMessageDialog(null, "Ingrese un número de cedula valido.", "Error", JOptionPane.ERROR_MESSAGE);
+            }
+        }
+
+        Candidato candidatoABuscar = null;
+
+        for (Candidato candidato : candidatos) {
+            if (candidato.getCedula() == cedulaBuscar) {
+                candidatoABuscar = candidato;
+                break;
+            }
+        }
+
+        if (candidatoABuscar != null) {
+            mostrarMensaje("Candidato encontrado:\nNombre: " + candidatoABuscar.getNombre() + "\nCedula: " + candidatoABuscar.getCedula() + "\nCiudad: " + candidatoABuscar.getCiudad() + "\nPartido Político: " + candidatoABuscar.getPartido());
+        } else {
+            mostrarMensaje("Candidato no encontrado.");
+        }
+    }
+
+    private void mostrarVentanaListar() {
+        if (candidatos.isEmpty()) {
+            mostrarMensaje("No hay candidatos ingresados.");
+        } else {
+            StringBuilder listaCandidatos = new StringBuilder("Lista de todos los candidatos:\n");
+
+            for (Candidato candidato : candidatos) {
+                listaCandidatos.append("Nombre: ").append(candidato.getNombre()).append("\n");
+                listaCandidatos.append("Cedula: ").append(candidato.getCedula()).append("\n");
+                listaCandidatos.append("Ciudad: ").append(candidato.getCiudad()).append("\n");
+                listaCandidatos.append("Partido Politico: ").append(candidato.getPartido()).append("\n");
+                listaCandidatos.append("--------------------\n");
+            }
+
+            JTextArea textArea = new JTextArea(listaCandidatos.toString());
+            textArea.setEditable(false);
+            JScrollPane scrollPane = new JScrollPane(textArea);
+
+            JOptionPane.showMessageDialog(null, scrollPane);
+        }
+    }
+    private void mostrarVentanaVotos() {
+        for (Candidato candidato : candidatos) {
+            String votosStr = JOptionPane.showInputDialog("Ingrese la cantidad de votos para " + candidato.getNombre() + ":");
+            if (votosStr == null) {
+                return;
+            }
+
+            try {
+                int votosIngresar = Integer.parseInt(votosStr);
+                candidato.setVotos(votosIngresar);
+            } catch (NumberFormatException ex) {
+                JOptionPane.showMessageDialog(null, "Ingrese un número de votos válido.", "Error", JOptionPane.ERROR_MESSAGE);
+                return;
+            }
+        }
+
+        mostrarMensaje("Votos ingresados exitosamente.");
+        mostrarVentanaResultados();
+    }
+    private void mostrarVentanaResultados() {
+        candidatos.sort((c1, c2) -> Integer.compare(c2.getVotos(), c1.getVotos()));
+        StringBuilder resultados = new StringBuilder("Resultados de las Elecciones (de mayor a menor número de votos):\n");
+
+        for (Candidato candidato : candidatos) {
+            resultados.append("Nombre: ").append(candidato.getNombre()).append("\n");
+            resultados.append("Votos: ").append(candidato.getVotos()).append("\n\n");
+        }
+
+        JTextArea textArea = new JTextArea(resultados.toString());
+        textArea.setEditable(false);
+        JScrollPane scrollPane = new JScrollPane(textArea);
+
+        JOptionPane.showMessageDialog(null, scrollPane);
+    }
     private void mostrarMensaje(String mensaje) {
         JOptionPane.showOptionDialog(null, mensaje, "Mensaje", JOptionPane.OK_OPTION, JOptionPane.INFORMATION_MESSAGE, null, new Object[]{"OK"}, "OK");
     }
-
-    // Realizar la logica de las funciones.
-
-
 
     public static void main(String[] args) {
         SwingUtilities.invokeLater(new Runnable() {
@@ -281,5 +448,5 @@ public class App{
         });
     }
 
-
 };
+
