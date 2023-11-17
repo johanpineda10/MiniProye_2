@@ -11,67 +11,100 @@ import java.util.List;
 public class App{
     private ArrayList<Candidato> candidatos = new ArrayList<>();
     private JFrame frame;
-    private JButton insertarButton, actualizarButton, eliminarButton, buscarButton, listarButton, votosButton, salirButton;
     private String[] ciudades = {"Cali", "Buga", "Palmira", "Tulua", "Cartago", "Bugalagrande", "Buenaventura", "Yumbo"};
     private String[] partidos = {"Partido Liberal", "Partido Conservador", "Liga", "AICO", "Partido Verde", "Union Patriótica", "Centro Democratico", "Partido de la U", "Cambio Radical"};
+    private JMenuBar barra;
+    private JMenu creacion, visualizar, votos, salir;
+    private JMenuItem crear, modificar, eliminar, verNombre, verTodos, sali, canVotos, resulVotos, conFinal;
 
     public App() {
         frame = new JFrame("Sistema de Candidatos y Votos");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.setSize(400, 400);
-
-        insertarButton = new JButton("1. Insertar Candidato");
-        actualizarButton = new JButton("2. Actualizar Candidato");
-        eliminarButton = new JButton("3. Eliminar Candidato");
-        buscarButton = new JButton("4. Buscar Candidato por cédula");
-        listarButton = new JButton("5. Listar todos los Candidatos");
-        votosButton = new JButton("6. Solicitar Votos");
-        salirButton = new JButton("7. Salir");
-
+        frame.setSize(480, 250);
+        
         JPanel panel = new JPanel();
-        panel.setLayout(new GridLayout(7, 1));
-        panel.add(insertarButton);
-        panel.add(actualizarButton);
-        panel.add(eliminarButton);
-        panel.add(buscarButton);
-        panel.add(listarButton);
-        panel.add(votosButton);
-        panel.add(salirButton);
+        panel.setLayout(new FlowLayout());
+        
+        
+        barra = new JMenuBar();
+        creacion = new JMenu("CREACION");
+        creacion.setFont(new Font("Times New Roman", Font.BOLD, 20));
+        visualizar = new JMenu("VISUALIZAR");
+        visualizar.setFont(new Font("Times New Roman", Font.BOLD, 20));
+        votos = new JMenu("VOTOS");
+        votos.setFont(new Font("Times New Roman", Font.BOLD, 20));
+        salir = new JMenu("SALIR");
+        salir.setFont(new Font("Times New Roman", Font.BOLD, 20));
 
+        crear = new JMenuItem("Crear candidato");
+        crear.setFont(new Font("Times New Roman", Font.PLAIN, 18));
+        modificar = new JMenuItem("Modificar candidato");
+        modificar.setFont(new Font("Times New Roman", Font.PLAIN, 18));
+        eliminar = new JMenuItem("Eliminar candidato");
+        eliminar.setFont(new Font("Times New Roman", Font.PLAIN, 18));
+        verNombre = new JMenuItem("Buscar candidato");
+        verNombre.setFont(new Font("Times New Roman", Font.PLAIN, 18));
+        verTodos = new JMenuItem("Todos los candidatos");
+        verTodos.setFont(new Font("Times New Roman", Font.PLAIN, 18));
+        sali = new JMenuItem("Salir");
+        sali.setFont(new Font("Times New Roman", Font.PLAIN, 18));
+        canVotos = new JMenuItem("Cantidad votos");
+        canVotos.setFont(new Font("Times New Roman", Font.PLAIN, 18));
+        resulVotos = new JMenuItem("Resultado votos");
+        resulVotos.setFont(new Font("Times New Roman", Font.PLAIN, 18));
+        conFinal = new JMenuItem("Conteo Final");
+        conFinal.setFont(new Font("Times New Roman", Font.PLAIN, 18));
+
+        creacion.add(crear);
+        creacion.add(modificar);
+        creacion.add(eliminar);
+        visualizar.add(verNombre);
+        visualizar.add(verTodos);
+        votos.add(canVotos);
+        votos.add(resulVotos);
+        votos.add(conFinal);
+        salir.add(sali);
+
+        barra.add(creacion);
+        barra.add(visualizar);
+        barra.add(votos);
+        barra.add(salir);
+
+        panel.add(barra);
         frame.add(panel);
         frame.setVisible(true);
 
-        insertarButton.addActionListener(new ActionListener() {
+        crear.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 mostrarVentanaInsertar();
             }
         });
 
-        actualizarButton.addActionListener(new ActionListener() {
+        modificar.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 mostrarVentanaActualizar();
             }
         });
 
-        eliminarButton.addActionListener(new ActionListener() {
+        eliminar.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 mostrarVentanaEliminar();
             }
         });
 
-        buscarButton.addActionListener(new ActionListener() {
+        verNombre.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 mostrarVentanaBuscar();
             }
         });
 
-        listarButton.addActionListener(new ActionListener() {
+        verTodos.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 mostrarVentanaListar();
             }
         });
 
-        votosButton.addActionListener(new ActionListener() {
+        canVotos.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 if (candidatos.isEmpty()) {
                     mostrarMensaje("No hay candidatos ingresados.");
@@ -81,7 +114,27 @@ public class App{
             }
         });
 
-        salirButton.addActionListener(new ActionListener() {
+        resulVotos.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                if (candidatos.isEmpty()) {
+                    mostrarMensaje("No hay candidatos ingresados.");
+                } else {
+                    mostrarVentanaResultados();
+                }
+            }
+        });
+
+        conFinal.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                if (candidatos.isEmpty()) {
+                    mostrarMensaje("No hay candidatos ingresados.");
+                } else {
+                    mostrarVentanaGanador();
+                }
+            }
+        });
+
+        sali.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 System.exit(0);
             }
